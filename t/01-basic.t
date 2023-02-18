@@ -10,7 +10,7 @@ subtest "wrap" => sub {
     local $Text::Wrap::NoStrip::columns = 12;
     is_deeply(
         wrap("", "x", "longword1longword2longword3 word1  word2  word3"),
-        "longword1lon\nxgword2longw\nxord3 word1 \nx word2  wor\nxd3",
+        "longword1lon\nxgword2longw\nxord3 word1\nx  word2  \nxword3",
     );
 };
 

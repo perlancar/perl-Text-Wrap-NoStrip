@@ -30,14 +30,19 @@ sub wrap {
                 my $len = length $chunk;
                 #print "D:got chunk=<$chunk> ($len), width=$width, scalar(\@res)=".scalar(@res)."\n";
                 if ($width + $len > $columns) {
-                    my $s;
 
-                    $s = substr($chunk, 0, $columns - $width);
-                    #print "D:wrapping <$s>\n";
-                    substr($chunk, 0, $columns - $width) = "";
-                    push @res, $s, "\n$subsequent_indent";
-                    $width = $si_len;
-                    goto L1;
+                    # should we chop long word?
+                    if ($chunk !~ /\s/ && $len > $columns - $si_len) {
+                        my $s = substr($chunk, 0, $columns - $width);
+                        #print "D:wrapping <$s>\n";
+                        substr($chunk, 0, $columns - $width) = "";
+                        push @res, $s, "\n$subsequent_indent";
+                        $width = $si_len;
+                        goto L1;
+                    } else {
+                        push @res, "\n$subsequent_indent", $chunk;
+                        $width = $len;
+                    }
                 } else {
                     #print "D:adding <$chunk>\n";
                     push @res, $chunk;
