@@ -4,6 +4,12 @@ use strict;
 use warnings;
 
 use Exporter qw(import);
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
+
 our @EXPORT_OK = qw(
                        wrap
                );
